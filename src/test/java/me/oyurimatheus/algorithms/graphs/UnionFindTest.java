@@ -1,4 +1,4 @@
-package me.oyurimatheus.graphs;
+package me.oyurimatheus.algorithms.graphs;
 
 import org.junit.jupiter.api.Test;
 
