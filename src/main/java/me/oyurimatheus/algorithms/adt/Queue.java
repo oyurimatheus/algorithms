@@ -1,17 +1,19 @@
 package me.oyurimatheus.algorithms.adt;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.StringJoiner;
 
 public final class Queue<E> implements Iterable<E> {
 
     private Node<E> first;
     private Node<E> last;
-    private long size;
+    private int size;
 
     public final Queue<E> enqueue(E element) {
         Node<E> node = new Node<>(element);
 
-        if(first == null) {
+        if(isEmpty()) {
             first = node;
             last = first;
         } else {
@@ -25,7 +27,7 @@ public final class Queue<E> implements Iterable<E> {
     }
 
     public final E dequeue() {
-        if(first == null) {
+        if(isEmpty()) {
             throw new UnsupportedOperationException("Could not dequeue from an empty list");
         }
 
@@ -35,6 +37,10 @@ public final class Queue<E> implements Iterable<E> {
 
         size--;
 
+        if(isEmpty()) {
+            last = null;
+        }
+
         return value;
     }
 
@@ -42,13 +48,13 @@ public final class Queue<E> implements Iterable<E> {
         return size;
     }
 
+    public boolean isEmpty() {
+        return first == null;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new DefaultIterator<>(first);
-    }
-
-    public boolean isEmpty() {
-        return first == null;
     }
 
     private static class Node<E> {
@@ -85,5 +91,14 @@ public final class Queue<E> implements Iterable<E> {
 
             return item;
         }
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner joiner = new StringJoiner(", ", Queue.class.getSimpleName() + "[", "]");
+
+        this.forEach(element -> joiner.add(element.toString()));
+
+        return joiner.toString();
     }
 }

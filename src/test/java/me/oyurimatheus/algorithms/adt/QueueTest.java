@@ -63,6 +63,4 @@ class QueueTest {
         assertThat(iterator.next()).isEqualTo(4);
         assertThat(iterator.hasNext()).isFalse();
     }
-
-
 }
