@@ -26,7 +26,7 @@ public class Stack<E> implements Iterable<E> {
 
     public E pop() {
         if(isEmpty()) {
-            throw new UnsupportedOperationException("Could not peek from an empty stack");
+            throw new UnsupportedOperationException("Cannot pop from an empty stack");
         }
 
         E item = top.value;
@@ -38,7 +38,7 @@ public class Stack<E> implements Iterable<E> {
 
     public E peek() {
         if(isEmpty()) {
-            throw new UnsupportedOperationException("Could not peek from an empty stack");
+            throw new UnsupportedOperationException("Cannot peek from an empty stack");
         }
 
         return top.value;

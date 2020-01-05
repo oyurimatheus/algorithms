@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Iterator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class StackTest {
 
@@ -66,5 +67,36 @@ class StackTest {
         assertThat(iterator.next()).isEqualTo(2);
         assertThat(iterator.next()).isEqualTo(1);
         assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    void shouldNotPermitAddANullInStack() {
+        Stack<Integer> integers = new Stack<>();
+
+        assertThatThrownBy(() -> integers.push(null))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("Item cannot be null");
+    }
+
+    @Test
+    void shouldNotPermitPeekFromAnEmptyStack() {
+        Stack<Integer> integers = new Stack<>();
+
+        assertThatThrownBy(integers::peek)
+                .isInstanceOf(UnsupportedOperationException.class)
+                .hasMessage("Cannot peek from an empty stack");
+
+        assertThat(integers.isEmpty()).isTrue();
+    }
+
+    @Test
+    void shouldNotPermitPopFromAnEmptyStack() {
+        Stack<Integer> integers = new Stack<>();
+
+        assertThatThrownBy(integers::pop)
+                .isInstanceOf(UnsupportedOperationException.class)
+                .hasMessage("Cannot pop from an empty stack");
+
+        assertThat(integers.isEmpty()).isTrue();
     }
 }

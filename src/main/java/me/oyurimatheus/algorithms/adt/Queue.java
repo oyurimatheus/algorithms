@@ -3,6 +3,8 @@ package me.oyurimatheus.algorithms.adt;
 import java.util.Iterator;
 import java.util.StringJoiner;
 
+import static java.util.Objects.requireNonNull;
+
 public final class Queue<E> implements Iterable<E> {
 
     private Node<E> first;
@@ -10,6 +12,8 @@ public final class Queue<E> implements Iterable<E> {
     private int size;
 
     public final Queue<E> enqueue(E element) {
+        requireNonNull(element, "Element cannot be null");
+
         Node<E> node = new Node<>(element);
 
         if(isEmpty()) {
@@ -27,7 +31,7 @@ public final class Queue<E> implements Iterable<E> {
 
     public final E dequeue() {
         if(isEmpty()) {
-            throw new UnsupportedOperationException("Could not dequeue from an empty list");
+            throw new UnsupportedOperationException("Cannot dequeue from an empty queue");
         }
 
         E value = first.value;
@@ -41,6 +45,14 @@ public final class Queue<E> implements Iterable<E> {
         }
 
         return value;
+    }
+
+    public E peek() {
+        if(isEmpty()) {
+            throw new UnsupportedOperationException("Cannot peek from an empty queue");
+        }
+
+        return first.value;
     }
 
     public final long size() {

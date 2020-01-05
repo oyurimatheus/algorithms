@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Iterator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class QueueTest {
 
@@ -62,5 +63,36 @@ class QueueTest {
         assertThat(iterator.next()).isEqualTo(3);
         assertThat(iterator.next()).isEqualTo(4);
         assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    void shouldNotPermitAddANullInQueue() {
+        Queue<Integer> queue = new Queue<>();
+
+        assertThatThrownBy(() -> queue.enqueue(null))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("Element cannot be null");
+    }
+
+    @Test
+    void shouldNotPermitPeekFromAnEmptyQueue() {
+        Queue<Integer> queue = new Queue<>();
+
+        assertThatThrownBy(queue::peek)
+                .isInstanceOf(UnsupportedOperationException.class)
+                .hasMessage("Could not peek from an empty queue");
+
+        assertThat(queue.isEmpty()).isTrue();
+    }
+
+    @Test
+    void shouldNotPermitDequeueFromAnEmptyQueue() {
+        Queue<Integer> queue = new Queue<>();
+
+        assertThatThrownBy(queue::dequeue)
+                .isInstanceOf(UnsupportedOperationException.class)
+                .hasMessage("Could not dequeue from an empty queue");
+
+        assertThat(queue.isEmpty()).isTrue();
     }
 }
