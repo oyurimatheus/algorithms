@@ -1,25 +1,18 @@
 package me.oyurimatheus.algorithms.adt;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
 
-public class Stack<E> implements Iterable<E> {
+public final class Stack<E> implements Iterable<E> {
 
-    private  Node<E> top;
-    private int size;
+    private Deque<E> stack = new Deque<>();
 
     public Stack<E> push(E item) {
         requireNonNull(item, "Item cannot be null");
 
-        Node<E> oldTop = top;
-
-        top = new Node<>(item);
-        top.next = oldTop;
-
-        size++;
+        stack.pushRight(item);
 
         return this;
     }
@@ -29,11 +22,7 @@ public class Stack<E> implements Iterable<E> {
             throw new UnsupportedOperationException("Cannot pop from an empty stack");
         }
 
-        E item = top.value;
-        top = top.next;
-
-        size--;
-        return item;
+        return stack.popRight();
     }
 
     public E peek() {
@@ -41,53 +30,22 @@ public class Stack<E> implements Iterable<E> {
             throw new UnsupportedOperationException("Cannot peek from an empty stack");
         }
 
-        return top.value;
+        return stack.peekRight();
     }
 
     public int size() {
-        return size;
+        return stack.size();
     }
 
     public boolean isEmpty() {
-        return top == null;
+        return stack.isEmpty();
     }
 
     @Override
     public Iterator<E> iterator()  {
-        return new DefaultIterator<>(top);
+        return stack.reverseIterator();
     }
 
-    private static class Node<E> {
-        E value;
-        Node<E> next;
-
-        Node(E element) {
-            this.value = element;
-        }
-    }
-
-    private static class DefaultIterator<E> implements Iterator<E> {
-
-        private Node<E> current;
-
-        DefaultIterator(Node<E> first) {
-            current = first;
-        }
-
-        public boolean hasNext() {
-            return current != null;
-        }
-
-        public E next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
-
-            E item = current.value;
-            current = current.next;
-            return item;
-        }
-    }
 
     @Override
     public String toString() {

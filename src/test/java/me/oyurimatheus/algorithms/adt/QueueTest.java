@@ -80,7 +80,7 @@ class QueueTest {
 
         assertThatThrownBy(queue::peek)
                 .isInstanceOf(UnsupportedOperationException.class)
-                .hasMessage("Could not peek from an empty queue");
+                .hasMessage("Cannot peek from an empty queue");
 
         assertThat(queue.isEmpty()).isTrue();
     }
@@ -91,7 +91,7 @@ class QueueTest {
 
         assertThatThrownBy(queue::dequeue)
                 .isInstanceOf(UnsupportedOperationException.class)
-                .hasMessage("Could not dequeue from an empty queue");
+                .hasMessage("Cannot dequeue from an empty queue");
 
         assertThat(queue.isEmpty()).isTrue();
     }
