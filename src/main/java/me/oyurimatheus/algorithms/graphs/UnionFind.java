@@ -1,4 +1,4 @@
-package me.oyurimatheus.graphs;
+package me.oyurimatheus.algorithms.graphs;
 
 public class UnionFind {
 
