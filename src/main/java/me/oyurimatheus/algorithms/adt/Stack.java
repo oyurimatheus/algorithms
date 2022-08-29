@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class Stack<E> implements Iterable<E> {
 
-    private Deque<E> stack = new Deque<>();
+    private final Deque<E> stack = new Deque<>();
 
     public Stack<E> push(E item) {
         requireNonNull(item, "Item cannot be null");

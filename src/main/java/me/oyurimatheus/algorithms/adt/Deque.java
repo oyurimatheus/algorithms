@@ -96,6 +96,25 @@ public final class Deque<E> implements Iterable<E> {
         return last.value;
     }
 
+    public E get(int position) {
+
+        if (position > size) {
+            throw new IndexOutOfBoundsException("Index is greater than values in array");
+        }
+
+        if (position < 0) {
+            throw new IllegalArgumentException("Index must be 0 or higher");
+        }
+
+        Iterator<E> iterator = iterator();
+        E current = iterator.next();
+        for(int i = 1; i < position; i++) {
+            current = iterator.next();
+        }
+
+        return current;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new DefaultIterator(first);

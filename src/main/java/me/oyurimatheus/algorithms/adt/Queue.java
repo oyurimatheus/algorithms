@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class Queue<E> implements Iterable<E> {
 
-    private Deque<E> queue = new Deque<>();
+    private final Deque<E> queue = new Deque<>();
 
     public final Queue<E> enqueue(E element) {
         requireNonNull(element, "Element cannot be null");
